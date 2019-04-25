@@ -13,7 +13,7 @@ public class ConfigurationData
     const string ConfigurationDataFileName = "ConfigurationData.csv";
 
     // configuration data
-    static float paddleMoveUnitsPerSecond = 0.5f;
+    static float paddleMoveUnitsPerSecond = 10;
     static float ballImpulseForce = 400;
 
     #endregion
