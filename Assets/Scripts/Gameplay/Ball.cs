@@ -12,19 +12,18 @@ public class Ball : MonoBehaviour {
 
         rb = GetComponent<Rigidbody2D>();
          
-
         Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
         Debug.Log(direction);
 
         rb.AddForce(direction * ConfigurationUtils.BallImpulseForce * Time.deltaTime, ForceMode2D.Impulse);
 
-        //rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
     }
 
     public void SetDirection(Vector2 ballDirection) {
 
         rb.velocity = ballDirection * ConfigurationUtils.BallImpulseForce * Time.deltaTime;
+
     }
 }
 
