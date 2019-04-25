@@ -9,7 +9,7 @@ public class Paddle : MonoBehaviour {
     float halfColliderWidth = 0;
     float halfColliderHeight = 0;
 
-    const float BounceAngleHalfRange = 180 * Mathf.Deg2Rad;
+    const float BounceAngleHalfRange = 60 * Mathf.Deg2Rad;
     // Use this for initialization
     void Start () {
 
@@ -25,8 +25,10 @@ public class Paddle : MonoBehaviour {
 
        if (Input.GetAxis("Horizontal") != 0) {
 
-            Vector3 position = new Vector3(transform.position.x + Input.GetAxis("Horizontal") *
-                ConfigurationUtils.PaddleMoveUnitsPerSecond, transform.position.y);
+            Vector2 position = rb.position;
+
+            position.x += Input.GetAxis("Horizontal") *
+            ConfigurationUtils.PaddleMoveUnitsPerSecond * Time.deltaTime;
 
             position.x = CalculateClampedX(position.x);
 
@@ -51,10 +53,9 @@ public class Paddle : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D coll) {
 
-        if (coll.gameObject.CompareTag("Ball") /*&& IsTopCollision(coll) == true*/) {
+        if (coll.gameObject.CompareTag("Ball")) {
          
             // calculate new ball direction
-            // Отступ от  центр весла до точки столкнвоения мяча
             float ballOffsetFromPaddleCenter = transform.position.x -
                 coll.transform.position.x;
             float normalizedBallOffset = ballOffsetFromPaddleCenter /
@@ -63,21 +64,9 @@ public class Paddle : MonoBehaviour {
             float angle = Mathf.PI / 2 + angleOffset;
             Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
-            Vector2 contact = coll.contacts[0].point;
-
-            Debug.Log(contact);
-            
-
             // tell ball to set direction to new direction
             Ball ballScript = coll.gameObject.GetComponent<Ball>();
             ballScript.SetDirection(direction);
         }
-    }
-    bool IsTopCollision(Collision2D coll) {
-
-        if ((coll.contacts[0].point.y - coll.transform.position.y) / halfColliderHeight <= 0.05f ) {
-            return true;
-        } 
-        else return false;
     }
 }
