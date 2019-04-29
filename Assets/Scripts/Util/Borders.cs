@@ -12,11 +12,10 @@ public class Borders : MonoBehaviour {
 
         ec = GetComponent<EdgeCollider2D>();
 
+        points.Add(new Vector2(ScreenUtils.ScreenLeft, ScreenUtils.ScreenBottom));
         points.Add(new Vector2(ScreenUtils.ScreenLeft, ScreenUtils.ScreenTop));
         points.Add(new Vector2(ScreenUtils.ScreenRight, ScreenUtils.ScreenTop));
         points.Add(new Vector2(ScreenUtils.ScreenRight, ScreenUtils.ScreenBottom));
-        points.Add(new Vector2(ScreenUtils.ScreenLeft, ScreenUtils.ScreenBottom));
-        points.Add(new Vector2(ScreenUtils.ScreenLeft, ScreenUtils.ScreenTop));
 
         ec.points = points.ToArray();
     }
