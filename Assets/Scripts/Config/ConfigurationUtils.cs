@@ -17,11 +17,14 @@ public static class ConfigurationUtils {
         get { return configurationData.PaddleMoveUnitsPerSecond; }
     }
 
-
-
     public static float BallImpulseForce {
         get { return configurationData.BallImpulseForce; }
     }
+
+    public static float BallLifetime {
+        get { return configurationData.BallLifetime; }
+    }
+
     #endregion
     /// <summary>
     /// Initializes the configuration utils
