@@ -10,7 +10,7 @@ public class Paddle : MonoBehaviour {
     float halfColliderHeight = 0;
 
     const float BounceAngleHalfRange = 60 * Mathf.Deg2Rad;
-    // Use this for initialization
+
     void Start () {
 
         rb = GetComponent<Rigidbody2D>();
@@ -36,7 +36,8 @@ public class Paddle : MonoBehaviour {
 
         }
     }
-
+    
+    // clampe paddle in to screen
     float CalculateClampedX(float positionX) {
 
         if (positionX  <= ScreenUtils.ScreenLeft + halfColliderWidth) {
