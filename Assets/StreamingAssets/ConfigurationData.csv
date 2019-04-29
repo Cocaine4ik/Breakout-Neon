@@ -1,2 +1,2 @@
-PaddleMoveUnitsPerSecond,BallImpulseForce,BallLifetime
-10,400,10
+PaddleMoveUnitsPerSecond,BallImpulseForce,BallLifetime,MinSpawnTime,MaxSpawnTime
+10,400,10,5,10
