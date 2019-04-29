@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// A ball class
 public class Ball : MonoBehaviour {
 
     private Rigidbody2D rb;
@@ -47,6 +48,16 @@ public class Ball : MonoBehaviour {
 
             Camera.main.GetComponent<BallSpawner>().SpawnBall();
             Destroy(gameObject);
+        }
+    }
+
+    private void OnBecameInvisible() {
+
+        if (rb.position.y < ScreenUtils.ScreenBottom) {
+
+            Camera.main.GetComponent<BallSpawner>().SpawnBall();
+            Destroy(gameObject);
+
         }
     }
 }
