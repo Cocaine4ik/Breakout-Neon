@@ -10,6 +10,7 @@ public class Ball : MonoBehaviour {
     private Timer deathTimer;
     private Timer startMoveTimer;
 
+
     private float angle = 270 * Mathf.Deg2Rad;
 
     void Start () {
@@ -53,11 +54,10 @@ public class Ball : MonoBehaviour {
 
     private void OnBecameInvisible() {
 
-        if (rb.position.y < ScreenUtils.ScreenBottom) {
-
+        if (rb.position.y < ScreenUtils.ScreenBottom) {            
             Camera.main.GetComponent<BallSpawner>().SpawnBall();
             Destroy(gameObject);
-
+            HUD.RemoveBall();
         }
     }
 }
