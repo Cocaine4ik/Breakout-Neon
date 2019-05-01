@@ -27,6 +27,23 @@ public static class ConfigurationUtils {
     public static float MaxSpawnTime {
         get { return configurationData.MaxSpawnTime; }
     }
+
+    public static int StandardBlockPoints {
+        get { return configurationData.StandardBlockPoints;  }
+    }
+
+    public static int BonusBlockPoints {
+        get { return configurationData.BonusBlockPoints; }
+    }
+
+    public static int PickupBlockPoints {
+        get { return configurationData.PickupBlockPoints; }
+    }
+
+    public static int BallsPerGame {
+        get { return configurationData.BallsPerGame; }
+    }
+
     #endregion
 
     public static void Initialize() {
