@@ -1,24 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BallSpawner : MonoBehaviour {
 
     [SerializeField] GameObject ballPrefab;
 
-    Timer cooldownTimer;
     Timer spawnTimer;
 
     Vector2 spawnLocationMin;
     Vector2 spawnLocationMax;
 
-
     private void Start() {
-
-        // init and run cooldown timer
-        cooldownTimer = gameObject.AddComponent<Timer>();
-        cooldownTimer.Duration = 1;
-        cooldownTimer.Run();
 
         // init and run spawn timer
         spawnTimer = gameObject.AddComponent<Timer>();
@@ -47,15 +41,17 @@ public class BallSpawner : MonoBehaviour {
         }
     }
 
+    private void OnEnable() {
+
+        Instantiate(ballPrefab);
+    }
+
     // spawn ball
     public void SpawnBall() {
 
-        if (cooldownTimer.Finished) {
-
             if (Physics2D.OverlapArea(spawnLocationMin, spawnLocationMax) == null) {
+
                 Instantiate(ballPrefab);
-                cooldownTimer.Run();
             }
-        }
     }
 }
