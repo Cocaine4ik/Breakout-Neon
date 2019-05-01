@@ -18,6 +18,12 @@ public class ConfigurationData
     static float minSpawnTime = 5;
     static float maxSpawnTime = 10;
 
+    static int standardBlockPoints = 10;
+    static int bonusBlockPoints = 50;
+    static int pickupBlockPoints = 25;
+
+    static int ballsPerGame = 5;
+
     #endregion
 
     #region Properties
@@ -39,12 +45,31 @@ public class ConfigurationData
         get { return ballLifetime; }
     }
 
+    // min and max spawn time
     public float MinSpawnTime {
         get { return minSpawnTime; }
     }
 
     public float MaxSpawnTime {
         get { return maxSpawnTime; }
+    }
+    // points for standarad block
+    public int StandardBlockPoints {
+        get { return standardBlockPoints;  }
+    }
+    // points for bonus block
+    public int BonusBlockPoints {
+        get { return bonusBlockPoints; }
+    }
+
+    // points for pickbup block
+    public int PickupBlockPoints {
+        get { return pickupBlockPoints; }
+    }
+
+    // number of balls per game
+    public int BallsPerGame {
+        get { return ballsPerGame; }
     }
 
     #endregion
@@ -94,5 +119,9 @@ public class ConfigurationData
         minSpawnTime = float.Parse(values[3]);
         maxSpawnTime = float.Parse(values[4]);
 
+        standardBlockPoints = int.Parse(values[5]);
+        bonusBlockPoints = int.Parse(values[6]);
+        pickupBlockPoints = int.Parse(values[7]);
+        ballsPerGame = int.Parse(values[8]);
     }
 }
