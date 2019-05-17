@@ -13,7 +13,7 @@ public class StandardBlock : Block {
 
     }
     // if block is detroyed, paddle color and light chganges in addiction to block color
-    protected void OnDestroy() {
+    protected virtual void OnDestroy() {
 
         if (GameObject.FindGameObjectWithTag("Paddle") != null) {
             switch (color) {
