@@ -17,12 +17,15 @@ public class ConfigurationData
     static float ballLifetime = 10;
     static float minSpawnTime = 5;
     static float maxSpawnTime = 10;
+    static float freezerEffectDuration = 2;
 
     static int standardBlockPoints = 10;
     static int bonusBlockPoints = 50;
     static int pickupBlockPoints = 25;
 
     static int ballsPerGame = 5;
+
+
 
     #endregion
 
@@ -53,6 +56,12 @@ public class ConfigurationData
     public float MaxSpawnTime {
         get { return maxSpawnTime; }
     }
+
+    // freezer effect duraion
+    public float FreezerEffectDuration {
+        get { return freezerEffectDuration; }
+    }
+
     // points for standarad block
     public int StandardBlockPoints {
         get { return standardBlockPoints;  }
@@ -123,5 +132,6 @@ public class ConfigurationData
         bonusBlockPoints = int.Parse(values[6]);
         pickupBlockPoints = int.Parse(values[7]);
         ballsPerGame = int.Parse(values[8]);
+        freezerEffectDuration = float.Parse(values[9]);
     }
 }
