@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class FreezeBlock : PickupBlock {
 
+    private float freezeEffectDuarion;
+    FreezerEffectActivated FreezerEffectActivated = new FreezerEffectActivated();
+
     protected override void Start() {
 
         base.Start();
-        color = "Blue";
-        pickupEffect = PickupEffect.Freezer.ToString();
 
+        color = "Blue";
+
+        effect = PickupEffect.Freezer;
+    }
+
+    protected override void OnDestroy() {
+
+        base.OnDestroy();
+        FreezerEffectActivated.Invoke(freezeEffectDuarion);
     }
 }
