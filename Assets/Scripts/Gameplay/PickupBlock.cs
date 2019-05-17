@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PickupBlock : StandardBlock {
 
-    protected string pickupEffect;
-
+    protected PickupEffect effect;
     protected override void Start() {
 
         points = ConfigurationUtils.PickupBlockPoints;
