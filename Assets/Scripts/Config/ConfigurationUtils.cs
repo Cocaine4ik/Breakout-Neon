@@ -28,6 +28,10 @@ public static class ConfigurationUtils {
         get { return configurationData.MaxSpawnTime; }
     }
 
+    public static float FreezerEffectDuarion {
+        get { return configurationData.FreezerEffectDuration; }
+    }
+
     public static int StandardBlockPoints {
         get { return configurationData.StandardBlockPoints;  }
     }
