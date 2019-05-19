@@ -7,7 +7,10 @@ public class SpeedupBlock : PickupBlock {
     protected override void Start() {
 
         base.Start();
+
         color = "Green";
-        pickupEffect = PickupEffect.Speedup.ToString();
+
+        effect = PickupEffect.Speedup;
+
     }
 }
