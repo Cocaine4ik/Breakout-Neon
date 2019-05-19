@@ -5,7 +5,7 @@ using UnityEngine;
 public class FreezeBlock : PickupBlock {
 
     private float freezeEffectDuarion;
-    FreezerEffectActivated FreezerEffectActivated = new FreezerEffectActivated();
+    FreezerEffectActivated freezerEffectActivated = new FreezerEffectActivated();
 
     protected override void Start() {
 
@@ -19,6 +19,6 @@ public class FreezeBlock : PickupBlock {
     protected override void OnDestroy() {
 
         base.OnDestroy();
-        FreezerEffectActivated.Invoke(freezeEffectDuarion);
+        freezerEffectActivated.Invoke(freezeEffectDuarion);
     }
 }
