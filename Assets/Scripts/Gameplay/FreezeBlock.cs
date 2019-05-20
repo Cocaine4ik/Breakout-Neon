@@ -19,6 +19,6 @@ public class FreezeBlock : PickupBlock {
     protected override void OnDestroy() {
 
         base.OnDestroy();
-        freezerEffectActivated.Invoke(freezeEffectDuarion);
+        EventManager.TriggerEvent("FreezeEffectActivated", freezeEffectDuarion);
     }
 }
