@@ -8,6 +8,7 @@ public class Event : UnityEvent<System.Object> { }
 
 public class EventManager : MonoBehaviour {
 
+    // create new dictionart with events and theor names on string
     private Dictionary <string, Event> eventDictionary;
 
     public static EventManager Instance;
