@@ -18,6 +18,8 @@ public class ConfigurationData
     static float minSpawnTime = 5;
     static float maxSpawnTime = 10;
     static float freezerEffectDuration = 2;
+    static float speedUpEffectDuration = 2;
+    static float speedFactor = 2;
 
     static int standardBlockPoints = 10;
     static int bonusBlockPoints = 50;
@@ -60,6 +62,16 @@ public class ConfigurationData
     // freezer effect duraion
     public float FreezerEffectDuration {
         get { return freezerEffectDuration; }
+    }
+
+    // speedUp effect duration
+    public float SpeedUpEffectDuration {
+        get { return speedUpEffectDuration; }
+    }
+
+    // sppedUp effect speed multipiller
+    public float SpeedFactor {
+        get { return speedFactor; }
     }
 
     // points for standarad block
@@ -133,5 +145,7 @@ public class ConfigurationData
         pickupBlockPoints = int.Parse(values[7]);
         ballsPerGame = int.Parse(values[8]);
         freezerEffectDuration = float.Parse(values[9]);
+        speedUpEffectDuration = float.Parse(values[10]);
+        speedFactor = float.Parse(values[11]);
     }
 }
