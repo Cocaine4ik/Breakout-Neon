@@ -5,12 +5,29 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour {
 
+    [SerializeField] public GameObject frostEffect;
+
     private static GameObject scoresText;
     private static GameObject ballsText;
 
     private static int scores;
     private static int balls;
 
+    private void OnEnable() {
+        EventManager.StartListening("FreezeEffectActivated", OnFreezeEffect);
+        EventManager.StartListening("FreezeEffectDeactivated", OffFreezeEffect);
+    }
+
+    private void OnDisable() {
+        EventManager.StopListening("FreezeEffectActivated", OnFreezeEffect);
+        EventManager.StopListening("FreezeEffectDeactivated", OffFreezeEffect);
+    }
+
+    private void Awake() {
+
+        frostEffect.gameObject.SetActive(false);
+
+    }
     void Start() {
 
         balls = ConfigurationUtils.BallsPerGame;
@@ -18,6 +35,14 @@ public class HUD : MonoBehaviour {
         scoresText = GameObject.FindGameObjectWithTag("Score");
         ballsText = GameObject.FindGameObjectWithTag("Balls");
         ballsText.GetComponent<Text>().text = "Balls: " + balls;
+    }
+
+    void OnFreezeEffect(object arg) {
+        frostEffect.gameObject.SetActive(true);
+    }
+
+    void OffFreezeEffect(object arg) {
+        frostEffect.gameObject.SetActive(false);
     }
     // add points to scroe value
     public static void AddScore(int points) {
