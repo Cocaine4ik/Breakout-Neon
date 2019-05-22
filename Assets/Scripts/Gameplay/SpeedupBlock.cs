@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SpeedupBlock : PickupBlock {
 
+    float speedUpEffectDuration;
+    float speedFactor;
+
     protected override void Start() {
 
         base.Start();
@@ -12,5 +15,15 @@ public class SpeedupBlock : PickupBlock {
 
         effect = PickupEffect.Speedup;
 
+        speedUpEffectDuration = ConfigurationUtils.SpeedUpEffectDuration;
+        speedFactor = ConfigurationUtils.SpeedFactor;
+
+    }
+
+    protected override void OnCollisionEnter2D(Collision2D collision) {
+
+        base.OnCollisionEnter2D(collision);
+
+        EventManager.TriggerEvent("SpeedUpEffectActivated", speedUpEffectDuration, speedFactor);
     }
 }
