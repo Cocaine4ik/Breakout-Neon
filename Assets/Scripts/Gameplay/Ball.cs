@@ -5,59 +5,89 @@ using UnityEngine;
 // A ball class
 public class Ball : MonoBehaviour {
 
-    private Rigidbody2D rb;
-
     private Timer deathTimer;
     private Timer startMoveTimer;
+    private Timer speedUpTimer;
 
+    private bool isSpeedUp = false;
 
-    private float angle = 270 * Mathf.Deg2Rad;
+    private void OnEnable() {
+        EventManager.StartListening("SpeedUpEffectActivated", OnSpeedUp);
+    }
 
+    private void OnDisable() {
+        EventManager.StopListening("SpeedUpEffectActivated", OnSpeedUp);
+    }
     void Start () {
-
-        rb = GetComponent<Rigidbody2D>();
-
-        // run and configure deathTimer
-        deathTimer = gameObject.AddComponent<Timer>();
-        deathTimer.Duration = ConfigurationUtils.BallLifetime;
-        deathTimer.Run();
 
         //run and configure startMoveTimer
         startMoveTimer = gameObject.AddComponent<Timer>();
         startMoveTimer.Duration = 1f;
         startMoveTimer.Run();
 
+        // run and configure deathTimer
+        deathTimer = gameObject.AddComponent<Timer>();
+        deathTimer.Duration = ConfigurationUtils.BallLifetime;
+        deathTimer.Run();
+
+        speedUpTimer = gameObject.AddComponent<Timer>();
+    }
+
+    private void Update() {
+        // move when time is up
+        if (startMoveTimer.Finished) {
+
+            startMoveTimer.Stop();
+            StartMoving();
+        }
+
+        // die when time is up
+        if (deathTimer.Finished) {
+
+            // spawn new ball and destroy self
+            Camera.main.GetComponent<BallSpawner>().SpawnBall();
+            Destroy(gameObject);
+        }
     }
 
     // set ball direction and sped after collision
-    public void SetDirection(Vector2 ballDirection) {
+    public void SetDirection(Vector2 direction) {
 
-        rb.velocity = ballDirection * ConfigurationUtils.BallImpulseForce * Time.deltaTime;
+        // get current rigidbody speed
+        Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
+        float speed = rb2d.velocity.magnitude;
+        rb2d.velocity = direction * speed;
 
     }
-    private void Update() {
-        // if startMoveTimer is finished add force to ball
-        if (startMoveTimer.Finished) {
 
-            Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-            rb.AddForce(direction * ConfigurationUtils.BallImpulseForce * Time.deltaTime, ForceMode2D.Impulse);
-            startMoveTimer.Stop();
-        }
+    void StartMoving() {
 
-        // if deathTimer is finished spwn new ball and destroy previous
-        if (deathTimer.Finished) {         
-
-            Camera.main.GetComponent<BallSpawner>().SpawnBall();
-            Destroy(gameObject);
-        }
+        // get the ball moving
+        float angle = -90 * Mathf.Deg2Rad;
+        Vector2 force = new Vector2(
+            ConfigurationUtils.BallImpulseForce * Mathf.Cos(angle),
+            ConfigurationUtils.BallImpulseForce * Mathf.Sin(angle));
+        GetComponent<Rigidbody2D>().AddForce(force);
     }
 
+    void OnSpeedUp(object arg0, object arg1) {
+
+        speedUpTimer.Duration = (float)arg0;
+        speedUpTimer.Run();
+        isSpeedUp = true;
+        GetComponent<Rigidbody2D>().velocity *= (float)arg1;
+    }
     private void OnBecameInvisible() {
 
-        if (rb.position.y < ScreenUtils.ScreenBottom) {            
-            Camera.main.GetComponent<BallSpawner>().SpawnBall();
+        // death timer destruction is in Update
+        if (!deathTimer.Finished) {
+            // only spawn a new ball if below screen
+            float halfColliderHeight = gameObject.GetComponent<BoxCollider2D>().size.y / 2;
+            if (transform.position.y - halfColliderHeight < ScreenUtils.ScreenBottom) {
+                Camera.main.GetComponent<BallSpawner>().SpawnBall();
+                HUD.RemoveBall();
+            }
             Destroy(gameObject);
-            HUD.RemoveBall();
         }
     }
 }
