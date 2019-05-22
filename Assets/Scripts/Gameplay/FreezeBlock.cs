@@ -16,7 +16,7 @@ public class FreezeBlock : PickupBlock {
         color = "Blue";
 
         effect = PickupEffect.Freezer;
-        freezeEffectDuration = ConfigurationUtils.FreezerEffectDuarion;
+        freezeEffectDuration = ConfigurationUtils.FreezerEffectDuration;
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision) {
