@@ -6,7 +6,7 @@ public class Block : MonoBehaviour {
 
     protected int points;
 
-    private void OnCollisionEnter2D(Collision2D coll) {
+    protected virtual void OnCollisionEnter2D(Collision2D coll) {
 
         if(coll.gameObject.CompareTag("Ball")) {
 
