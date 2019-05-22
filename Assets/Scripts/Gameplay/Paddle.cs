@@ -6,11 +6,23 @@ public class Paddle : MonoBehaviour {
 
     Rigidbody2D rb;
     BoxCollider2D bc;
+
+    Timer freezeTimer;
+
     float halfColliderWidth = 0;
     float halfColliderHeight = 0;
 
+
+    bool isFrozen;
+
     const float BounceAngleHalfRange = 60 * Mathf.Deg2Rad;
 
+    private void OnEnable() {
+        EventManager.StartListening("FreezeEffectActivated", OnFreezePaddle);
+    }
+    private void OnDisable() {
+        EventManager.StopListening("FreezeEffectActivated", OnFreezePaddle);
+    }
     void Start () {
 
         rb = GetComponent<Rigidbody2D>();
@@ -19,22 +31,37 @@ public class Paddle : MonoBehaviour {
         halfColliderWidth = bc.size.x / 2;
         halfColliderHeight = bc.size.y / 2;
 
-    }
+        isFrozen = false;
+        freezeTimer = gameObject.AddComponent<Timer>();
 
+    }
+    private void Update() {
+
+        if (freezeTimer.Finished) {
+
+            isFrozen = false;
+
+            EventManager.TriggerEvent("FreezeEffectDeactivated");
+        }
+        Debug.Log(isFrozen);
+    }
     private void FixedUpdate() {
 
-       if (Input.GetAxis("Horizontal") != 0) {
+        if(!isFrozen) {
+            if (Input.GetAxis("Horizontal") != 0) {
 
-            Vector2 position = rb.position;
+                Vector2 position = rb.position;
 
-            position.x += Input.GetAxis("Horizontal") *
-            ConfigurationUtils.PaddleMoveUnitsPerSecond * Time.deltaTime;
+                position.x += Input.GetAxis("Horizontal") *
+                ConfigurationUtils.PaddleMoveUnitsPerSecond * Time.deltaTime;
 
-            position.x = CalculateClampedX(position.x);
+                position.x = CalculateClampedX(position.x);
 
-            rb.MovePosition(position);
+                rb.MovePosition(position);
 
+            }
         }
+
     }
     
     // clampe paddle in to screen
@@ -70,4 +97,12 @@ public class Paddle : MonoBehaviour {
             ballScript.SetDirection(direction);
         }
     }
+
+     void OnFreezePaddle(object arg){
+
+        freezeTimer.Duration = (float)arg;
+        freezeTimer.Run();
+        isFrozen = true;
+
+    } 
 }
