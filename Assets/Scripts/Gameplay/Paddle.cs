@@ -13,7 +13,7 @@ public class Paddle : MonoBehaviour {
     float halfColliderHeight = 0;
 
 
-    bool isFrozen;
+    bool isFrozen = false;
 
     const float BounceAngleHalfRange = 60 * Mathf.Deg2Rad;
 
@@ -31,7 +31,6 @@ public class Paddle : MonoBehaviour {
         halfColliderWidth = bc.size.x / 2;
         halfColliderHeight = bc.size.y / 2;
 
-        isFrozen = false;
         freezeTimer = gameObject.AddComponent<Timer>();
 
     }
