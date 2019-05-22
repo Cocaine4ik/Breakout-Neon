@@ -1,25 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class BallSpawner : MonoBehaviour {
 
-    [SerializeField] GameObject ballPrefab;
+    [SerializeField]GameObject prefabBall;
 
+    // spawn support
+    Vector2 spawnLocation = new Vector2(0, -1.5f);
     Timer spawnTimer;
+    float spawnRange;
 
+    // collision-free support
+    bool retrySpawn = false;
     Vector2 spawnLocationMin;
     Vector2 spawnLocationMax;
 
-    private void Start() {
+    private bool stopSpawn = false;
 
-        // init and run spawn timer
-        spawnTimer = gameObject.AddComponent<Timer>();
-        spawnTimer.Duration = Random.Range(ConfigurationUtils.MinSpawnTime, ConfigurationUtils.MaxSpawnTime);
-        spawnTimer.Run();
+    public bool StopSpawn {
+        get { return stopSpawn; }
+    }
 
-        GameObject tempBall = Instantiate<GameObject>(ballPrefab);
+    void Start() {
+        // spawn and destroy ball to calculate
+        // spawn location min and max
+        GameObject tempBall = Instantiate<GameObject>(prefabBall);
         BoxCollider2D collider = tempBall.GetComponent<BoxCollider2D>();
         float ballColliderHalfWidth = collider.size.x / 2;
         float ballColliderHalfHeight = collider.size.y / 2;
@@ -31,27 +38,51 @@ public class BallSpawner : MonoBehaviour {
             tempBall.transform.position.y + ballColliderHalfHeight);
         Destroy(tempBall);
 
+        // initialize and start spawn timer
+        spawnRange = ConfigurationUtils.MaxSpawnTime -
+            ConfigurationUtils.MinSpawnTime;
+        spawnTimer = gameObject.AddComponent<Timer>();
+        spawnTimer.Duration = GetSpawnDelay();
+        spawnTimer.Run();
+
+        // spwan first ball in game
+        SpawnBall();
     }
 
-    private void Update() {
-        if(spawnTimer.Finished) {
-
+    void Update() {
+        Debug.Log(stopSpawn);
+        // spawn ball and restart timer as appropriate
+        if (spawnTimer.Finished) {
+            // don't stack with a spawn still pending
+            retrySpawn = false;
+            SpawnBall();
+            spawnTimer.Duration = GetSpawnDelay();
             spawnTimer.Run();
+        }
+
+        // try again if spawn still pending
+        if (retrySpawn) {
             SpawnBall();
         }
     }
-
-    private void OnEnable() {
-
-        Instantiate(ballPrefab);
+    private void OnApplicationQuit() {
+        stopSpawn = true;
+    }
+    /// Spawns a ball
+    public void SpawnBall() {
+        // make sure we don't spawn into a collision
+        if (Physics2D.OverlapArea(spawnLocationMin, spawnLocationMax) == null && !stopSpawn) {
+            retrySpawn = false;
+            Instantiate(prefabBall);
+        }
+        else {
+            retrySpawn = true;
+        }
     }
 
-    // spawn ball
-    public void SpawnBall() {
-
-            if (Physics2D.OverlapArea(spawnLocationMin, spawnLocationMax) == null) {
-
-                Instantiate(ballPrefab);
-            }
+    /// Gets the spawn delay in seconds for the next ball spawn
+    float GetSpawnDelay() {
+        return ConfigurationUtils.MinSpawnTime +
+            Random.value * spawnRange;
     }
 }
