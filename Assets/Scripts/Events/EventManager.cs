@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-public class Event : UnityEvent<System.Object> { }
+public class Event : UnityEvent<System.Object, System.Object> { }
 
 public class EventManager : MonoBehaviour {
 
@@ -26,7 +26,7 @@ public class EventManager : MonoBehaviour {
         }
     }
     // add listener to dictionary
-    public static void StartListening(string eventName, UnityAction <System.Object> listener) {
+    public static void StartListening(string eventName, UnityAction <System.Object, System.Object> listener) {
 
         Event thisEvent = null;
         if(Instance.eventDictionary.TryGetValue(eventName, out thisEvent)) {
@@ -38,9 +38,10 @@ public class EventManager : MonoBehaviour {
             thisEvent.AddListener(listener);
             Instance.eventDictionary.Add(eventName, thisEvent);
         }
+
     }
     // delete listener from the dictionary
-    public static void StopListening(string eventName, UnityAction <System.Object> listener) {
+    public static void StopListening(string eventName, UnityAction <System.Object, System.Object> listener) {
 
         if (Instance == null) return;
         Event thisEvent = null;
@@ -51,13 +52,13 @@ public class EventManager : MonoBehaviour {
         }
     }
     // invoke event from the dictionary
-    public static void TriggerEvent(string eventName, System.Object arg = null) {
+    public static void TriggerEvent(string eventName, System.Object arg0 = null, System.Object arg1 = null) {
 
         Event thisEvent = null;
 
         if (Instance.eventDictionary.TryGetValue(eventName, out thisEvent)) {
 
-            thisEvent.Invoke(arg);
+            thisEvent.Invoke(arg0, arg1);
         }
     }
 }
