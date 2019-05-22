@@ -1,2 +1,2 @@
-PaddleMoveUnitsPerSecond,BallImpulseForce,BallLifetime,MinSpawnTime,MaxSpawnTime,StandardBockPoints,BonusBlockPoints,PickupBlockPoints,BallsPerGame
-10,400,10,5,10,10,50,25,5
+PaddleMoveUnitsPerSecond,BallImpulseForce,BallLifetime,MinSpawnTime,MaxSpawnTime,StandardBockPoints,BonusBlockPoints,PickupBlockPoints,BallsPerGame,FreezerEffectDuration,SpeedUpEffectDuration,SpeedFactor
+10,400,10,5,10,10,50,25,5,2,2,2
