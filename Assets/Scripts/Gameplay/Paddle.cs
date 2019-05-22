@@ -43,7 +43,6 @@ public class Paddle : MonoBehaviour {
 
             EventManager.TriggerEvent("FreezeEffectDeactivated");
         }
-        Debug.Log(isFrozen);
     }
     private void FixedUpdate() {
 
@@ -98,9 +97,9 @@ public class Paddle : MonoBehaviour {
         }
     }
 
-     void OnFreezePaddle(object arg){
+     void OnFreezePaddle(object arg0, object arg1){
 
-        freezeTimer.Duration = (float)arg;
+        freezeTimer.Duration = (float)arg0;
         freezeTimer.Run();
         isFrozen = true;
 
