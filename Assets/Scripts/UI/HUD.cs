@@ -37,13 +37,14 @@ public class HUD : MonoBehaviour {
         ballsText.GetComponent<Text>().text = "Balls: " + balls;
     }
 
-    void OnFreezeEffect(object arg) {
+    void OnFreezeEffect(object arg0, object arg1) {
         frostEffect.gameObject.SetActive(true);
     }
 
-    void OffFreezeEffect(object arg) {
+    void OffFreezeEffect(object arg0, object arg1) {
         frostEffect.gameObject.SetActive(false);
     }
+
     // add points to scroe value
     public static void AddScore(int points) {
 
