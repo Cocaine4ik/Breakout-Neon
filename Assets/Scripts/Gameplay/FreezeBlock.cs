@@ -5,9 +5,7 @@ using UnityEngine;
 public class FreezeBlock : PickupBlock {
 
     private float freezeEffectDuration;
-    FreezerEffectActivated freezerEffectActivated = new FreezerEffectActivated();
-
-    
+   
     protected override void Start() {
 
         base.Start();
