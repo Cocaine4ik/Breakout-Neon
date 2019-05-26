@@ -50,8 +50,10 @@ public class BallSpawner : MonoBehaviour {
     }
 
     void Update() {
+
+        Debug.Log("GameType" + GameTypes.IsWacky);
         // spawn ball and restart timer as appropriate
-        if (spawnTimer.Finished) {
+        if (spawnTimer.Finished && GameTypes.IsWacky) {
             // don't stack with a spawn still pending
             retrySpawn = false;
             SpawnBall();
@@ -60,7 +62,7 @@ public class BallSpawner : MonoBehaviour {
         }
 
         // try again if spawn still pending
-        if (retrySpawn) {
+        if (retrySpawn && GameTypes.IsWacky) {
             SpawnBall();
         }
     }

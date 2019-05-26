@@ -50,7 +50,7 @@ public class Ball : MonoBehaviour {
         }
 
         // die when time is up
-        if (deathTimer.Finished) {
+        if (deathTimer.Finished && GameTypes.IsWacky) {
 
             // spawn new ball and destroy self
             Camera.main.GetComponent<BallSpawner>().SpawnBall();

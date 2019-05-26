@@ -5,7 +5,7 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour {
 
     #region Methods
-
+    
     void Start () {
         // stop the game
         Time.timeScale = 0;
@@ -16,6 +16,9 @@ public class PauseMenu : MonoBehaviour {
 
         Time.timeScale = 1;
         Destroy(gameObject);
+
+        StatusUtils.IsPause = false;
+        
     }
 
     // resume game, destroy pause menu and go to main menu

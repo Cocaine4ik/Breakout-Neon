@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
@@ -10,7 +9,14 @@ public class MainMenu : MonoBehaviour {
     // start new game
     public void OnStartButton() {
 
-        SceneManager.LoadScene("Scene0");
+        MenuManager.GoToMenu(MenuName.GameTypes);
+    }
+
+    // load help scene
+    public void OnHelpButton() {
+
+        MenuManager.GoToMenu(MenuName.Help);
+
     }
 
     // quit game
@@ -18,6 +24,7 @@ public class MainMenu : MonoBehaviour {
 
         Application.Quit();
     }
+
     #endregion
 
 }

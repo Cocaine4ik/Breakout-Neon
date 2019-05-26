@@ -11,6 +11,8 @@ public static class MenuManager {
 
             case MenuName.Main: SceneManager.LoadScene("MainMenu"); break;
             case MenuName.Pause: Object.Instantiate(Resources.Load("Prefabs/PauseMenu")); break;
+            case MenuName.Help: SceneManager.LoadScene("Help"); break;
+            case MenuName.GameTypes: SceneManager.LoadScene("GameTypes"); break;
 
         }
     }

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class HUD : MonoBehaviour {
 
     [SerializeField] public GameObject frostEffect;
+    [SerializeField] public GameObject speedUpEffect;
 
     private static GameObject scoresText;
     private static GameObject ballsText;
@@ -26,6 +27,7 @@ public class HUD : MonoBehaviour {
     private void Awake() {
 
         frostEffect.gameObject.SetActive(false);
+        speedUpEffect.gameObject.SetActive(false);
 
     }
     void Start() {
