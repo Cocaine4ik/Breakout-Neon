@@ -7,9 +7,10 @@ public class Ball : MonoBehaviour {
 
     private Timer deathTimer;
     private Timer startMoveTimer;
-    private Timer speedUpTimer;
 
-    private bool isSpeedUp = false;
+    Vector2 direction;
+    float originalSpeed;
+    Rigidbody2D rb2d;
 
     private void OnEnable() {
         EventManager.StartListening("SpeedUpEffectActivated", OnSpeedUp);
@@ -20,7 +21,14 @@ public class Ball : MonoBehaviour {
     }
     void Start () {
 
-        //run and configure startMoveTimer
+        rb2d = GetComponent<Rigidbody2D>();
+
+        // set the initial values
+        float angle = -90 * Mathf.Deg2Rad;
+        direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+        originalSpeed = ConfigurationUtils.BallImpulseForce;
+
+        // run and configure startMoveTimer
         startMoveTimer = gameObject.AddComponent<Timer>();
         startMoveTimer.Duration = 1f;
         startMoveTimer.Run();
@@ -30,7 +38,7 @@ public class Ball : MonoBehaviour {
         deathTimer.Duration = ConfigurationUtils.BallLifetime;
         deathTimer.Run();
 
-        speedUpTimer = gameObject.AddComponent<Timer>();
+
     }
 
     private void Update() {
@@ -54,28 +62,28 @@ public class Ball : MonoBehaviour {
     public void SetDirection(Vector2 direction) {
 
         // get current rigidbody speed
-        Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
-        float speed = rb2d.velocity.magnitude;
-        rb2d.velocity = direction * speed;
+        this.direction = direction;
+        StartMoving();
 
     }
 
-    void StartMoving() {
+    void StartMoving(float speedFactor = 1) {
 
-        // get the ball moving
-        float angle = -90 * Mathf.Deg2Rad;
-        Vector2 force = new Vector2(
-            ConfigurationUtils.BallImpulseForce * Mathf.Cos(angle),
-            ConfigurationUtils.BallImpulseForce * Mathf.Sin(angle));
-        GetComponent<Rigidbody2D>().AddForce(force);
+        // NEW Reset ball velocity in case of any changes
+        rb2d.velocity = Vector3.zero;
+
+        // NEW Set the speed of the ball depending on speed up effect 
+        float actualSpeed = (EffectUtils.SpeedUp ? originalSpeed * speedFactor : originalSpeed);
+
+        // NEW Get the ball moving
+        rb2d.AddForce(direction * actualSpeed);
     }
 
     void OnSpeedUp(object arg0, object arg1) {
 
-        speedUpTimer.Duration = (float)arg0;
-        speedUpTimer.Run();
-        isSpeedUp = true;
-        GetComponent<Rigidbody2D>().velocity *= (float)arg1;
+        if(EffectUtils.SpeedUp) {
+            StartMoving((float)arg1);
+        }
     }
     private void OnBecameInvisible() {
 
