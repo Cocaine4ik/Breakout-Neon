@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedupBlock : PickupBlock {
+public class SpeedUpBlock : PickupBlock {
 
     float speedUpEffectDuration;
     float speedFactor;
