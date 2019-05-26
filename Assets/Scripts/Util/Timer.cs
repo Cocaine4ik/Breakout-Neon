@@ -41,6 +41,11 @@ public class Timer : MonoBehaviour
 		}
 	}
 	
+    public float TimeLeft {
+        get {
+            return totalSeconds - elapsedSeconds;
+        }
+    }
 	/// <summary>
 	/// Gets whether or not the timer has finished running
 	/// This property returns false if the timer has never been started
