@@ -50,7 +50,6 @@ public class BallSpawner : MonoBehaviour {
     }
 
     void Update() {
-        Debug.Log(stopSpawn);
         // spawn ball and restart timer as appropriate
         if (spawnTimer.Finished) {
             // don't stack with a spawn still pending
