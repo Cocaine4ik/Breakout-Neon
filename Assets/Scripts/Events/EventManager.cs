@@ -9,7 +9,7 @@ public class Event : UnityEvent<System.Object, System.Object> { }
 public class EventManager : MonoBehaviour {
 
     // create new dictionary with events and their names on string
-    private Dictionary <string, Event> eventDictionary;
+    private Dictionary <EventName, Event> eventDictionary;
 
     public static EventManager Instance;
 
@@ -17,7 +17,7 @@ public class EventManager : MonoBehaviour {
         if(Instance == null) {
 
             Instance = this;
-            eventDictionary = new Dictionary<string, Event>();
+            eventDictionary = new Dictionary<EventName, Event>();
         }
         else if (Instance != this) {
 
@@ -26,7 +26,7 @@ public class EventManager : MonoBehaviour {
         }
     }
     // add listener to dictionary
-    public static void StartListening(string eventName, UnityAction <System.Object, System.Object> listener) {
+    public static void StartListening(EventName eventName, UnityAction <System.Object, System.Object> listener) {
 
         Event thisEvent = null;
         if(Instance.eventDictionary.TryGetValue(eventName, out thisEvent)) {
@@ -41,7 +41,7 @@ public class EventManager : MonoBehaviour {
 
     }
     // delete listener from the dictionary
-    public static void StopListening(string eventName, UnityAction <System.Object, System.Object> listener) {
+    public static void StopListening(EventName eventName, UnityAction <System.Object, System.Object> listener) {
 
         if (Instance == null) return;
         Event thisEvent = null;
@@ -52,7 +52,7 @@ public class EventManager : MonoBehaviour {
         }
     }
     // invoke event from the dictionary
-    public static void TriggerEvent(string eventName, System.Object arg0 = null, System.Object arg1 = null) {
+    public static void TriggerEvent(EventName eventName, System.Object arg0 = null, System.Object arg1 = null) {
 
         Event thisEvent = null;
 
