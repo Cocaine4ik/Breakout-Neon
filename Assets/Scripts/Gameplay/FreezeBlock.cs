@@ -21,6 +21,6 @@ public class FreezeBlock : PickupBlock {
 
         base.OnCollisionEnter2D(collision);
 
-        EventManager.TriggerEvent("FreezeEffectActivated", freezeEffectDuration);
+        EventManager.TriggerEvent(EventName.FreezeEffectActivated, freezeEffectDuration);
     }
 }
