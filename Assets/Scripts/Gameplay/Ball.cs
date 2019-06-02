@@ -13,11 +13,11 @@ public class Ball : MonoBehaviour {
     Rigidbody2D rb2d;
 
     private void OnEnable() {
-        EventManager.StartListening("SpeedUpEffectActivated", OnSpeedUp);
+        EventManager.StartListening(EventName.SpeedUpEffectActivated, OnSpeedUp);
     }
 
     private void OnDisable() {
-        EventManager.StopListening("SpeedUpEffectActivated", OnSpeedUp);
+        EventManager.StopListening(EventName.SpeedUpEffectActivated, OnSpeedUp);
     }
     void Start () {
 
