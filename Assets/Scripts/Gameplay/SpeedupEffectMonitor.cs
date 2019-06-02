@@ -23,7 +23,7 @@ public class SpeedUpEffectMonitor : MonoBehaviour {
     private void Start() {
 
         speedUpTimer = gameObject.AddComponent<Timer>();
-        EventManager.StartListening("SpeedUpEffectActivated", OnSpeedUp);
+        EventManager.StartListening(EventName.SpeedUpEffectActivated, OnSpeedUp);
     }
 
     private void Update() {
@@ -34,7 +34,7 @@ public class SpeedUpEffectMonitor : MonoBehaviour {
         Debug.Log(speedUp);
     }
     private void OnDestroy() {
-        EventManager.StopListening("SpeedUpEffectActivated", OnSpeedUp);
+        EventManager.StopListening(EventName.SpeedUpEffectActivated, OnSpeedUp);
     }
 
     private void OnSpeedUp(object arg0, object arg1) {
