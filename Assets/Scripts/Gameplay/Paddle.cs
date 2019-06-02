@@ -18,10 +18,10 @@ public class Paddle : MonoBehaviour {
     const float BounceAngleHalfRange = 60 * Mathf.Deg2Rad;
 
     private void OnEnable() {
-        EventManager.StartListening("FreezeEffectActivated", OnFreezePaddle);
+        EventManager.StartListening(EventName.FreezeEffectActivated, OnFreezePaddle);
     }
     private void OnDisable() {
-        EventManager.StopListening("FreezeEffectActivated", OnFreezePaddle);
+        EventManager.StopListening(EventName.FreezeEffectDeactivated, OnFreezePaddle);
     }
     void Start () {
 
@@ -40,7 +40,7 @@ public class Paddle : MonoBehaviour {
 
             isFrozen = false;
 
-            EventManager.TriggerEvent("FreezeEffectDeactivated");
+            EventManager.TriggerEvent(EventName.FreezeEffectDeactivated);
         }
     }
     private void FixedUpdate() {
