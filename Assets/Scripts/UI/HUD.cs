@@ -15,13 +15,13 @@ public class HUD : MonoBehaviour {
     private static int balls;
 
     private void OnEnable() {
-        EventManager.StartListening("FreezeEffectActivated", OnFreezeEffect);
-        EventManager.StartListening("FreezeEffectDeactivated", OffFreezeEffect);
+        EventManager.StartListening(EventName.FreezeEffectActivated, OnFreezeEffect);
+        EventManager.StartListening(EventName.FreezeEffectDeactivated, OffFreezeEffect);
     }
 
     private void OnDisable() {
-        EventManager.StopListening("FreezeEffectActivated", OnFreezeEffect);
-        EventManager.StopListening("FreezeEffectDeactivated", OffFreezeEffect);
+        EventManager.StopListening(EventName.FreezeEffectActivated, OnFreezeEffect);
+        EventManager.StopListening(EventName.FreezeEffectDeactivated, OffFreezeEffect);
     }
 
     private void Awake() {
