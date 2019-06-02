@@ -24,6 +24,6 @@ public class SpeedUpBlock : PickupBlock {
 
         base.OnCollisionEnter2D(collision);
 
-        EventManager.TriggerEvent("SpeedUpEffectActivated", speedUpEffectDuration, speedFactor);
+        EventManager.TriggerEvent(EventName.SpeedUpEffectActivated, speedUpEffectDuration, speedFactor);
     }
 }
