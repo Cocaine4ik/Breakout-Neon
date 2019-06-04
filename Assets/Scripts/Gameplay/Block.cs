@@ -11,7 +11,7 @@ public class Block : MonoBehaviour {
         if(coll.gameObject.CompareTag("Ball")) {
 
             Destroy(gameObject);
-            HUD.AddScore(points);
+            EventManager.TriggerEvent(EventName.AddScore, points);
         }
     }
 }
