@@ -81,7 +81,7 @@ public class Timer : MonoBehaviour
 			if (elapsedSeconds >= totalSeconds)
             {
 				running = false;
-			}
+            }
 		}
 	}
 	
