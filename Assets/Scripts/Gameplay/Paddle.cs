@@ -96,9 +96,9 @@ public class Paddle : MonoBehaviour {
         }
     }
 
-     void OnFreezePaddle(object arg0, object arg1){
+     void OnFreezePaddle(object effectDuration, object arg1){
 
-        freezeTimer.Duration = (float)arg0;
+        freezeTimer.Duration = (float)effectDuration;
         freezeTimer.Run();
         isFrozen = true;
 
