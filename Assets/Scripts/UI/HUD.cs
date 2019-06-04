@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class HUD : MonoBehaviour {
@@ -17,11 +15,15 @@ public class HUD : MonoBehaviour {
     private void OnEnable() {
         EventManager.StartListening(EventName.FreezeEffectActivated, OnFreezeEffect);
         EventManager.StartListening(EventName.FreezeEffectDeactivated, OffFreezeEffect);
+        EventManager.StartListening(EventName.AddScore, OnAddScore);
+        EventManager.StopListening(EventName.ReduceBallsLeft, OnReduceBallsLeft);
     }
 
     private void OnDisable() {
         EventManager.StopListening(EventName.FreezeEffectActivated, OnFreezeEffect);
         EventManager.StopListening(EventName.FreezeEffectDeactivated, OffFreezeEffect);
+        EventManager.StopListening(EventName.AddScore, OnAddScore);
+        EventManager.StopListening(EventName.ReduceBallsLeft, OnReduceBallsLeft);
     }
 
     private void Awake() {
@@ -48,14 +50,14 @@ public class HUD : MonoBehaviour {
     }
 
     // add points to scroe value
-    public static void AddScore(int points) {
+    void OnAddScore(object points, object arg1) {
 
-        scores += points;
+        scores += (int)points;
         scoresText.GetComponent<Text>().text = "Score: " + scores.ToString();
 
     }
     // remove ball from balls per game
-    public static void  RemoveBall() {
+    void OnReduceBallsLeft(object arg0, object arg1) {
         balls = balls - 1;
         ballsText.GetComponent<Text>().text = "Balls: " + balls;
     }
