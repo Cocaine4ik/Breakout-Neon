@@ -7,4 +7,8 @@ public enum EventName {
     FreezeEffectActivated,
     FreezeEffectDeactivated,
     SpeedUpEffectActivated,
+    AddScore,
+    ReduceBallsLeft,
+    TimerIsFinished,
+    SpawnBall
 }
