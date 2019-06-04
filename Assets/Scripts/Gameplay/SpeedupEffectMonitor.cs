@@ -37,17 +37,17 @@ public class SpeedUpEffectMonitor : MonoBehaviour {
         EventManager.StopListening(EventName.SpeedUpEffectActivated, OnSpeedUp);
     }
 
-    private void OnSpeedUp(object arg0, object arg1) {
+    private void OnSpeedUp(object effectDuration, object speedFactor) {
 
         if(!speedUpTimer.Running) {
 
-            speedUpTimer.Duration = (float)arg0;
+            speedUpTimer.Duration = (float)effectDuration;
             speedUpTimer.Run();
             speedUp = true;
         }
         else {
 
-            speedUpTimer.Duration = speedUpTimer.TimeLeft + (float)arg0;
+            speedUpTimer.Duration = speedUpTimer.TimeLeft + (float)effectDuration;
             speedUpTimer.Run();
         }
     }
