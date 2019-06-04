@@ -79,10 +79,10 @@ public class Ball : MonoBehaviour {
         rb2d.AddForce(direction * actualSpeed);
     }
 
-    void OnSpeedUp(object arg0, object arg1) {
+    void OnSpeedUp(object effectDuration, object speedFactor) {
 
         if(EffectUtils.SpeedUp) {
-            StartMoving((float)arg1);
+            StartMoving((float)speedFactor);
         }
     }
     private void OnBecameInvisible() {
@@ -93,7 +93,8 @@ public class Ball : MonoBehaviour {
             float halfColliderHeight = gameObject.GetComponent<BoxCollider2D>().size.y / 2;
             if (transform.position.y - halfColliderHeight < ScreenUtils.ScreenBottom) {
                 Camera.main.GetComponent<BallSpawner>().SpawnBall();
-                HUD.RemoveBall();
+
+                EventManager.TriggerEvent(EventName.ReduceBallsLeft);
             }
             Destroy(gameObject);
         }
