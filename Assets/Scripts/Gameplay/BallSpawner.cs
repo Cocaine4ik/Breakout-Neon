@@ -70,7 +70,7 @@ public class BallSpawner : MonoBehaviour {
         stopSpawn = true;
     }
     /// Spawns a ball
-    public void SpawnBall() {
+    private void SpawnBall() {
         // make sure we don't spawn into a collision
         if (Physics2D.OverlapArea(spawnLocationMin, spawnLocationMax) == null && !stopSpawn) {
             retrySpawn = false;
