@@ -31,7 +31,6 @@ public class SpeedUpEffectMonitor : MonoBehaviour {
 
             speedUp = false;
         }
-        Debug.Log(speedUp);
     }
     private void OnDestroy() {
         EventManager.StopListening(EventName.SpeedUpEffectActivated, OnSpeedUp);
