@@ -23,6 +23,15 @@ public class BallSpawner : MonoBehaviour {
         get { return stopSpawn; }
     }
 
+    private void OnEnable() {
+        EventManager.StartListening(EventName.SpawnBall, OnSpawnBall);
+        EventManager.StartListening(EventName.TimerFinished, OnSpawnTimerFinished);
+    }
+
+    private void OnDisable() {
+        EventManager.StopListening(EventName.SpawnBall, OnSpawnBall);
+        EventManager.StopListening(EventName.TimerFinished, OnSpawnTimerFinished);
+    }
     void Start() {
         // spawn and destroy ball to calculate
         // spawn location min and max
@@ -42,6 +51,7 @@ public class BallSpawner : MonoBehaviour {
         spawnRange = ConfigurationUtils.MaxSpawnTime -
             ConfigurationUtils.MinSpawnTime;
         spawnTimer = gameObject.AddComponent<Timer>();
+
         spawnTimer.Duration = GetSpawnDelay();
         spawnTimer.Run();
 
@@ -68,6 +78,17 @@ public class BallSpawner : MonoBehaviour {
     }
     private void OnApplicationQuit() {
         stopSpawn = true;
+    }
+
+    public void OnSpawnTimerFinished(object timerName, object arg1) {
+        Debug.Log(timerName);
+    }
+
+    // on SpawnBall Event
+    public void OnSpawnBall(object arg0, object arg1) {
+
+        SpawnBall();
+
     }
     /// Spawns a ball
     private void SpawnBall() {
