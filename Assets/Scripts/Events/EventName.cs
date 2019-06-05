@@ -9,6 +9,6 @@ public enum EventName {
     SpeedUpEffectActivated,
     AddScore,
     ReduceBallsLeft,
-    TimerIsFinished,
+    TimerFinished,
     SpawnBall
 }
