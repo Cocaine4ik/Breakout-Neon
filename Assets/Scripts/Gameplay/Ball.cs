@@ -53,7 +53,7 @@ public class Ball : MonoBehaviour {
         if (deathTimer.Finished && GameTypes.IsWacky) {
 
             // spawn new ball and destroy self
-            Camera.main.GetComponent<BallSpawner>().SpawnBall();
+            EventManager.TriggerEvent(EventName.SpawnBall);
             Destroy(gameObject);
         }
     }
@@ -67,6 +67,7 @@ public class Ball : MonoBehaviour {
 
     }
 
+    
     void StartMoving(float speedFactor = 1) {
 
         // NEW Reset ball velocity in case of any changes
@@ -92,8 +93,8 @@ public class Ball : MonoBehaviour {
             // only spawn a new ball if below screen
             float halfColliderHeight = gameObject.GetComponent<BoxCollider2D>().size.y / 2;
             if (transform.position.y - halfColliderHeight < ScreenUtils.ScreenBottom) {
-                Camera.main.GetComponent<BallSpawner>().SpawnBall();
 
+                EventManager.TriggerEvent(EventName.SpawnBall);
                 EventManager.TriggerEvent(EventName.ReduceBallsLeft);
             }
             Destroy(gameObject);
