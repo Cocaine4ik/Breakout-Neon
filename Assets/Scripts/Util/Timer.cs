@@ -7,10 +7,12 @@ using UnityEngine;
 /// </summary>
 public class Timer : MonoBehaviour
 {
-	#region Fields
-	
-	// timer duration
-	float totalSeconds = 0;
+    #region Fields
+
+    string timerName;
+
+    // timer duration
+    float totalSeconds = 0;
 	
 	// timer execution
 	float elapsedSeconds = 0;
@@ -30,6 +32,7 @@ public class Timer : MonoBehaviour
 	/// The duration can only be set if the timer isn't currently running
 	/// </summary>
 	/// <value>duration</value>
+    /// 
 	public float Duration
     {
 		set
@@ -46,6 +49,7 @@ public class Timer : MonoBehaviour
             return totalSeconds - elapsedSeconds;
         }
     }
+
 	/// <summary>
 	/// Gets whether or not the timer has finished running
 	/// This property returns false if the timer has never been started
@@ -69,6 +73,9 @@ public class Timer : MonoBehaviour
 
     #region Methods
 
+    public void SetTimerName(string timerName) {
+        this.timerName = timerName;
+    }
     /// <summary>
     /// Update is called once per frame
     /// </summary>
@@ -81,6 +88,7 @@ public class Timer : MonoBehaviour
 			if (elapsedSeconds >= totalSeconds)
             {
 				running = false;
+                EventManager.TriggerEvent(EventName.TimerFinished, this.name);
             }
 		}
 	}
@@ -106,6 +114,7 @@ public class Timer : MonoBehaviour
     public void Stop() {
 
         stopped = true;
+        EventManager.TriggerEvent(EventName.TimerFinished);
     }
 	
 	#endregion
