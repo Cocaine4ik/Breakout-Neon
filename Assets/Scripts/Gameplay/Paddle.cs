@@ -32,6 +32,8 @@ public class Paddle : MonoBehaviour {
         halfColliderHeight = bc.size.y / 2;
 
         freezeTimer = gameObject.AddComponent<Timer>();
+        // freezeTimer.SetTimerName(TimerName.FreezeTimer);
+        freezeTimer.SetTimerName("FreezeTimer");
 
     }
     private void Update() {
