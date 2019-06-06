@@ -9,8 +9,8 @@ public class GameTypesMenu : MonoBehaviour {
 
     public void OnClassicButton() {
 
-        GameTypes.IsClassic = true;
-        GameTypes.IsWacky = false;
+        GameMode.IsClassic = true;
+        GameMode.IsWacky = false;
 
         StartTheGame();
 
@@ -18,8 +18,8 @@ public class GameTypesMenu : MonoBehaviour {
 
     public void OnWackyButton() {
 
-        GameTypes.IsClassic = false;
-        GameTypes.IsWacky = true;
+        GameMode.IsClassic = false;
+        GameMode.IsWacky = true;
 
         StartTheGame();
 

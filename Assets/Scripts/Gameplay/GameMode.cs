@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class GameTypes {
+public static class GameMode {
     #region Fields
 
     private static bool isClassic;

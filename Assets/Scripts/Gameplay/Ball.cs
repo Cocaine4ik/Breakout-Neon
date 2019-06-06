@@ -5,6 +5,8 @@ using UnityEngine;
 // A ball class
 public class Ball : MonoBehaviour {
 
+    #region Fields
+
     private Timer deathTimer;
     private Timer startMoveTimer;
 
@@ -12,12 +14,18 @@ public class Ball : MonoBehaviour {
     float originalSpeed;
     Rigidbody2D rb2d;
 
+    #endregion
+
+    #region Methods
+
     private void OnEnable() {
         EventManager.StartListening(EventName.SpeedUpEffectActivated, OnSpeedUp);
+        EventManager.StartListening(EventName.TimerFinished, OnDeathTimerFinished);
     }
 
     private void OnDisable() {
         EventManager.StopListening(EventName.SpeedUpEffectActivated, OnSpeedUp);
+        EventManager.StopListening(EventName.TimerFinished, OnDeathTimerFinished);
     }
     void Start () {
 
@@ -30,34 +38,26 @@ public class Ball : MonoBehaviour {
 
         // run and configure startMoveTimer
         startMoveTimer = gameObject.AddComponent<Timer>();
+        startMoveTimer.SetTimerName("StartMoveTimer");
         startMoveTimer.Duration = 1f;
         startMoveTimer.Run();
 
         // run and configure deathTimer
         deathTimer = gameObject.AddComponent<Timer>();
+        deathTimer.SetTimerName(".DeathTimer");
         deathTimer.Duration = ConfigurationUtils.BallLifetime;
         deathTimer.Run();
 
 
     }
-
     private void Update() {
-        // move when time is up
-        if (startMoveTimer.Finished) {
 
+        if(startMoveTimer.Finished) {
+            // move when time is up
             startMoveTimer.Stop();
             StartMoving();
         }
-
-        // die when time is up
-        if (deathTimer.Finished && GameTypes.IsWacky) {
-
-            // spawn new ball and destroy self
-            Camera.main.GetComponent<BallSpawner>().SpawnBall();
-            Destroy(gameObject);
-        }
     }
-
     // set ball direction and sped after collision
     public void SetDirection(Vector2 direction) {
 
@@ -66,7 +66,7 @@ public class Ball : MonoBehaviour {
         StartMoving();
 
     }
-
+    
     void StartMoving(float speedFactor = 1) {
 
         // NEW Reset ball velocity in case of any changes
@@ -92,12 +92,35 @@ public class Ball : MonoBehaviour {
             // only spawn a new ball if below screen
             float halfColliderHeight = gameObject.GetComponent<BoxCollider2D>().size.y / 2;
             if (transform.position.y - halfColliderHeight < ScreenUtils.ScreenBottom) {
-                Camera.main.GetComponent<BallSpawner>().SpawnBall();
+
+                EventManager.TriggerEvent(EventName.SpawnBall);
 
                 EventManager.TriggerEvent(EventName.ReduceBallsLeft);
             }
             Destroy(gameObject);
         }
     }
+
+    #endregion
+
+    #region Events
+
+    public void OnDeathTimerFinished(object timerName, object arg1) {
+
+        if (timerName != null) {
+
+            string thisTimerName = timerName.ToString();
+
+                    if (thisTimerName.Equals("DeathTimer") && GameMode.IsWacky) {
+
+                        // spawn new ball and destroy self
+                        EventManager.TriggerEvent(EventName.SpawnBall);
+                        Destroy(gameObject);
+
+                    }
+        }
+    }
+
+    #endregion
 }
 
