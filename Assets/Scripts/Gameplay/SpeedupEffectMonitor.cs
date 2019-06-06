@@ -23,6 +23,8 @@ public class SpeedUpEffectMonitor : MonoBehaviour {
     private void Start() {
 
         speedUpTimer = gameObject.AddComponent<Timer>();
+        // speedUpTimer.SetTimerName(TimerName.SpeedUpTimer);
+        speedUpTimer.SetTimerName("SpeedUpTimer");
         EventManager.StartListening(EventName.SpeedUpEffectActivated, OnSpeedUp);
     }
 
