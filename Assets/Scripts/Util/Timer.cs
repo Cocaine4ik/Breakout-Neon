@@ -88,7 +88,7 @@ public class Timer : MonoBehaviour
 			if (elapsedSeconds >= totalSeconds)
             {
 				running = false;
-                EventManager.TriggerEvent(EventName.TimerFinished, this.name);
+                EventManager.TriggerEvent(EventName.TimerFinished, timerName);
             }
 		}
 	}
