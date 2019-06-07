@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MenuName {
+public class WackyBreakout : MonoBehaviour {
 
-    Main,
-    Pause,
-    Help,
-    GameTypes,
-    GameOver
+    private void Update() {
+    }
 }

@@ -41,6 +41,15 @@ public class HUD : MonoBehaviour {
         ballsText.GetComponent<Text>().text = "Balls: " + balls;
     }
 
+    private void Update() {
+        
+        if(balls <= 0) {
+
+            EventManager.TriggerEvent(EventName.GameOver);
+
+        }
+
+    }
     void OnFreezeEffect(object arg0, object arg1) {
         frostEffect.gameObject.SetActive(true);
     }

@@ -13,6 +13,7 @@ public static class MenuManager {
             case MenuName.Pause: Object.Instantiate(Resources.Load("Prefabs/PauseMenu")); break;
             case MenuName.Help: SceneManager.LoadScene("Help"); break;
             case MenuName.GameTypes: SceneManager.LoadScene("GameTypes"); break;
+            case MenuName.GameOver: Object.Instantiate(Resources.Load("Prefabs/GameOverMenu")); break;
 
         }
     }

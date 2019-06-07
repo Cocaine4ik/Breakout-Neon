@@ -8,10 +8,16 @@ public class Event : UnityEvent<System.Object, System.Object> { }
 
 public class EventManager : MonoBehaviour {
 
+    #region Fields
+
     // create new dictionary with events and their names on string
     private Dictionary <EventName, Event> eventDictionary;
 
     public static EventManager Instance;
+
+    #endregion
+
+    #region Methods
 
     private void Awake() {
         if(Instance == null) {
@@ -61,4 +67,6 @@ public class EventManager : MonoBehaviour {
             thisEvent.Invoke(arg0, arg1);
         }
     }
+
+    #endregion
 }

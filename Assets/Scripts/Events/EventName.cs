@@ -10,5 +10,6 @@ public enum EventName {
     AddScore,
     ReduceBallsLeft,
     TimerFinished,
-    SpawnBall
+    SpawnBall,
+    GameOver
 }
