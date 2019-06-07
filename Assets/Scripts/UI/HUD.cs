@@ -16,7 +16,7 @@ public class HUD : MonoBehaviour {
         EventManager.StartListening(EventName.FreezeEffectActivated, OnFreezeEffect);
         EventManager.StartListening(EventName.FreezeEffectDeactivated, OffFreezeEffect);
         EventManager.StartListening(EventName.AddScore, OnAddScore);
-        EventManager.StopListening(EventName.ReduceBallsLeft, OnReduceBallsLeft);
+        EventManager.StartListening(EventName.ReduceBallsLeft, OnReduceBallsLeft);
     }
 
     private void OnDisable() {
@@ -45,7 +45,7 @@ public class HUD : MonoBehaviour {
         
         if(balls <= 0) {
 
-            EventManager.TriggerEvent(EventName.GameOver);
+            EventManager.TriggerEvent(EventName.GameOver, scores);
 
         }
 

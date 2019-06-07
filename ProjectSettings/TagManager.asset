@@ -9,6 +9,7 @@ TagManager:
   - Score
   - Balls
   - Block
+  - ScoreLabel
   layers:
   - Default
   - TransparentFX
