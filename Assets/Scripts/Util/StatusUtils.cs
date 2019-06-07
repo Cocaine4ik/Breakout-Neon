@@ -6,4 +6,6 @@ public static class StatusUtils {
 
 
     public static bool IsPause { get; set; }
+
+    public static bool IsGameOver { get; set; }
 }

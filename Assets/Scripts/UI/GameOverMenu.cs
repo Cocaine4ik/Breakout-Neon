@@ -13,6 +13,7 @@ public class GameOverMenu : MonoBehaviour {
         // stop the game
         Time.timeScale = 0;
         scoreLabel.text = "Score: " + WackyBreakout.Score;
+        Debug.Log(StatusUtils.IsGameOver);
     }
 
     // resume game, destroy game over menu and go to main menu

@@ -42,11 +42,15 @@ public class HUD : MonoBehaviour {
     }
 
     private void Update() {
-        
-        if(balls <= 0) {
 
-            EventManager.TriggerEvent(EventName.GameOver, scores);
+        WackyBreakout.Score = scores;
 
+        if(balls <= 0 ) {
+
+            if (StatusUtils.IsGameOver != true) {
+                EventManager.TriggerEvent(EventName.GameOver, scores);
+                StatusUtils.IsGameOver = true;
+            }
         }
 
     }
