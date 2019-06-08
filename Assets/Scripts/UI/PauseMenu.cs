@@ -18,7 +18,8 @@ public class PauseMenu : MonoBehaviour {
         Destroy(gameObject);
 
         StatusUtils.IsPause = false;
-        
+        AudioManager.Play(AudioClipName.MenuButtonClick);
+
     }
 
     // resume game, destroy pause menu and go to main menu
@@ -27,6 +28,7 @@ public class PauseMenu : MonoBehaviour {
         Time.timeScale = 1;
         Destroy(gameObject);
         MenuManager.GoToMenu(MenuName.Main);
+        AudioManager.Play(AudioClipName.MenuButtonClick);
     }
     #endregion
 

@@ -8,5 +8,6 @@ public class BackButton : MonoBehaviour {
     public void OnBackButton() {
 
         MenuManager.GoToMenu(MenuName.Main);
+        AudioManager.Play(AudioClipName.MenuButtonClick);
     }
 }

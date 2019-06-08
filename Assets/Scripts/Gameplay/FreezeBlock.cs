@@ -22,5 +22,7 @@ public class FreezeBlock : PickupBlock {
         base.OnCollisionEnter2D(collision);
 
         EventManager.TriggerEvent(EventName.FreezeEffectActivated, freezeEffectDuration);
+
+        AudioManager.Play(AudioClipName.FreezeEffect);
     }
 }

@@ -14,6 +14,8 @@ public class GameTypesMenu : MonoBehaviour {
 
         StartTheGame();
 
+        AudioManager.Play(AudioClipName.MenuButtonClick);
+
     }
 
     public void OnWackyButton() {
@@ -22,6 +24,8 @@ public class GameTypesMenu : MonoBehaviour {
         GameMode.IsWacky = true;
 
         StartTheGame();
+
+        AudioManager.Play(AudioClipName.MenuButtonClick);
 
     }
 

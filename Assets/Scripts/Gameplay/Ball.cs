@@ -94,8 +94,8 @@ public class Ball : MonoBehaviour {
             if (transform.position.y - halfColliderHeight < ScreenUtils.ScreenBottom) {
 
                 EventManager.TriggerEvent(EventName.SpawnBall);
-
                 EventManager.TriggerEvent(EventName.ReduceBallsLeft);
+                AudioManager.Play(AudioClipName.BallReduced);
             }
             Destroy(gameObject);
         }

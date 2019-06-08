@@ -3,14 +3,25 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour {
 
+    #region Fields
+
     [SerializeField] public GameObject frostEffect;
     [SerializeField] public GameObject speedUpEffect;
 
     private static GameObject scoresText;
     private static GameObject ballsText;
 
-    private static int scores;
     private static int balls;
+
+    #endregion
+
+    #region Propertis
+
+    public static int Scores {  get; set;   }
+
+    #endregion
+
+    #region Methods
 
     private void OnEnable() {
         EventManager.StartListening(EventName.FreezeEffectActivated, OnFreezeEffect);
@@ -28,6 +39,7 @@ public class HUD : MonoBehaviour {
 
     private void Awake() {
 
+        // hide effect game objects when the game is starting
         frostEffect.gameObject.SetActive(false);
         speedUpEffect.gameObject.SetActive(false);
 
@@ -43,17 +55,19 @@ public class HUD : MonoBehaviour {
 
     private void Update() {
 
-        WackyBreakout.Score = scores;
-
         if(balls <= 0 ) {
 
             if (StatusUtils.IsGameOver != true) {
-                EventManager.TriggerEvent(EventName.GameOver, scores);
+                EventManager.TriggerEvent(EventName.GameOver);
                 StatusUtils.IsGameOver = true;
             }
-        }
-
+        }      
     }
+
+    #endregion
+
+    #region Events
+
     void OnFreezeEffect(object arg0, object arg1) {
         frostEffect.gameObject.SetActive(true);
     }
@@ -65,8 +79,8 @@ public class HUD : MonoBehaviour {
     // add points to scroe value
     void OnAddScore(object points, object arg1) {
 
-        scores += (int)points;
-        scoresText.GetComponent<Text>().text = "Score: " + scores.ToString();
+        Scores += (int)points;
+        scoresText.GetComponent<Text>().text = "Score: " + Scores.ToString();
 
     }
     // remove ball from balls per game
@@ -74,4 +88,6 @@ public class HUD : MonoBehaviour {
         balls = balls - 1;
         ballsText.GetComponent<Text>().text = "Balls: " + balls;
     }
+
+    #endregion
 }

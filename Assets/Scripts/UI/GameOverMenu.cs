@@ -12,8 +12,9 @@ public class GameOverMenu : MonoBehaviour {
 
         // stop the game
         Time.timeScale = 0;
-        scoreLabel.text = "Score: " + WackyBreakout.Score;
+        scoreLabel.text = "Score: " + HUD.Scores;
         Debug.Log(StatusUtils.IsGameOver);
+        AudioManager.Play(AudioClipName.GameOver, 1);
     }
 
     // resume game, destroy game over menu and go to main menu
@@ -22,6 +23,8 @@ public class GameOverMenu : MonoBehaviour {
         Time.timeScale = 1;
         Destroy(gameObject);
         MenuManager.GoToMenu(MenuName.Main);
+        AudioManager.Stop();
+        AudioManager.Play(AudioClipName.MenuButtonClick);
     }
 
     #endregion

@@ -25,5 +25,7 @@ public class SpeedUpBlock : PickupBlock {
         base.OnCollisionEnter2D(collision);
 
         EventManager.TriggerEvent(EventName.SpeedUpEffectActivated, speedUpEffectDuration, speedFactor);
+
+        AudioManager.Play(AudioClipName.SpeedUpEffect);
     }
 }

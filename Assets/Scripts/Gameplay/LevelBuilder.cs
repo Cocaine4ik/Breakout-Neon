@@ -8,6 +8,8 @@ public class LevelBuilder : MonoBehaviour {
 
     [SerializeField] GameObject[] blockPrefabs = new GameObject[4];
 
+    GameObject[] allBlocks;
+
     float rowsNumber = 3;
     
 	void Start () {
@@ -31,4 +33,19 @@ public class LevelBuilder : MonoBehaviour {
         }
         Instantiate(paddlePrefab);
 	}
+
+    private void Update() {
+
+        allBlocks = GameObject.FindGameObjectsWithTag("Block");
+        Debug.Log(allBlocks.Length);
+        if (allBlocks.Length == 0) {
+
+            if (StatusUtils.IsGameOver != true) {
+
+                EventManager.TriggerEvent(EventName.GameOver);
+                StatusUtils.IsGameOver = true;
+
+            }
+        }
+    }
 }

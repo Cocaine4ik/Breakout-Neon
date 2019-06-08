@@ -12,6 +12,7 @@ public class Block : MonoBehaviour {
 
             Destroy(gameObject);
             EventManager.TriggerEvent(EventName.AddScore, points);
+            AudioManager.Play(AudioClipName.BallCollision);
         }
     }
 }
